@@ -1,34 +1,33 @@
 //Time com - O(N).,     space ~~ O(N)
-
+// by using single queue
 class MyStack {
 public:
-     queue<int> q1;
-     queue<int> q2;
+     queue<int> q;
+    
     MyStack() {
        
     }
     
     void push(int x) {
-        q2.push(x);
-        while(!q1.empty()){
-            q2.push(q1.front());   //element by element FIFO //here front instesd of top    
-            q1.pop();
+        q.push(x);
+        for(int i=0; i<q.size()-1; i++){   //1 less than size
+            q.push(q.front());
+            q.pop();
         }
-        swap(q1,q2);
     }
     
     int pop() {
-        int top = q1.front();
-        q1.pop();
-        return top;
+        int val = q.front();
+        q.pop();
+        return val;
     }
     
     int top() {
-        return q1.front();
+        return q.front();
     }
     
     bool empty() {
-        return q1.empty();
+        return q.empty();
     }
 };
 
