@@ -1,35 +1,53 @@
-class MyQueue {
+// last approach   Time Com - O(N)  space - O(2N)
+//This have push - O(1), pop - O(1) amotised   space - O(2N)
+
+class MyQueue {  
 public:
-        stack<int> s1;
-        stack<int> s2;
+        stack<int> input;
+        stack<int> output;
     MyQueue() {
         
     }
     
     void push(int x) {
-        while(!s1.empty()){       //s1 -> s2
-            s2.push(s1.top());    
-            s1.pop();
-        }
-        s2.push(x);               //element -> s1
-        while(!s2.empty()){       //s2 -> s1
-            s1.push(s2.top());
-            s2.pop();
-        }
+        input.push(x);
     }
     
+    
     int pop() {
-        int ans = s1.top();
-        s1.pop();
-        return ans;
+        int val;
+        if(!output.empty()){
+            val = output.top();
+            output.pop();
+        }
+        else{
+            while(!input.empty()){
+                output.push(input.top());
+                input.pop();
+            }
+            val = output.top();
+            output.pop();
+        }
+        return val;
     }
     
     int peek() {
-        return s1.top();
+        int val;
+        if(!output.empty()){  //if output is not empty
+            val = output.top();
+        }
+        else{                     //if output is empty
+            while(!input.empty()){
+                output.push(input.top());  //s1 -> s2
+                input.pop();
+            }
+            val = output.top();
+        }
+        return val;
     }
     
     bool empty() {
-        return s1.empty();
+        return input.empty() && output.empty();
     }
 };
 
