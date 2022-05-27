@@ -1,56 +1,45 @@
 class Solution {
 public:
     bool backspaceCompare(string s, string t) {
-        stack<char> st_s;
-        stack<char> st_t;
-        string str1,str2;
-        
-        for(int i=0; i<s.size();i++){
-            if(s[i] != '#'){
-                st_s.push(s[i]);
+    int k=0,p=0;
+        for(int i=0;i<s.size();i++)
+        {
+            if(s[i]=='#')
+            {
+                k--;
+                 k=max(0,k);
             }
-            else if(s[i] == '#' && !st_s.empty()){   //must check !st_s.empty() 
-                st_s.pop();
-            }
+            
+           else
+           {
+               s[k]=s[i];
+               k++;
+           }
         }
-        
-        for(int j=0; j<t.size();j++){
-            if(t[j] != '#'){
-                st_t.push(t[j]);
+        for(int i=0;i<t.size();i++)
+        {
+            if(t[i]=='#')
+            {
+                p--;
+                 p=max(0,p);
             }
-            else if(t[j] == '#' && !st_t.empty()){
-                st_t.pop();
-            }
+            
+           else
+           {
+               t[p]=t[i];
+               p++;
+           }
         }
-        if(st_s.size() != st_t.size())
+        if(k!=p)
             return false;
-        else{
-            while(!st_s.empty()){
-                if(st_s.top()==st_t.top()){
-                    st_s.pop();
-                    st_t.pop();
-                }
-                  else{
-                      return false;
-                  }  
+        else
+        {
+            for(int i=0;i<k;i++)
+            {
+                if(s[i]!=t[i])
+                    return false;
             }
             return true;
         }
-        
-        // or via string 
-//         while(!st_s.empty()){
-                 
-//                  str1.push_back(st_s.top());
-//                  st_s.pop();
-                 
-//          }
-            
-//          while(!st_t.empty()){
-                 
-//                  str2.push_back(st_t.top());
-//                  st_t.pop();
-                 
-//          } 
-//         return str1 == str2;   
     }
 };
