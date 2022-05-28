@@ -1,23 +1,31 @@
 class Solution {
 public:
     vector<int> nextGreaterElement(vector<int>& nums1, vector<int>& nums2) {
-        vector<int>out;
-        for(int i=0; i<nums1.size(); i++){
-           for(int j=0; j<nums2.size(); j++){
-              if(nums1[i]==nums2[j]){
-                 int max_val= -1;
-                  for(int k=j; k<nums2.size(); k++){
-                      if(nums2[k] > nums2[j]){
-                          max_val=nums2[k];
-                          break;
-                      }   
-                  }
-                      out.push_back(max_val);
-                  
-              }
-           } 
+       stack<int> st;
+       unordered_map<int,int> m;
+        
+        for(int i=nums2.size()-1; i>=0; i--){
+            while(!st.empty() && st.top()<=nums2[i]){
+                st.pop();
+            }
+            if(st.empty()){
+                m[nums2[i]] = -1;
+            }
+            else{
+                m[nums2[i]] = st.top();
+            }
+            st.push(nums2[i]);
         }
-        return out;
+        
+        for(int i=0; i<nums1.size(); i++)
+            nums1[i] = m[nums1[i]];
+        
+        return nums1;
     }
 };
+
+
+// Time com - O(N)  where N = length of nums2
+// Space com - O(N)  where N = length of nums2
+// refer https://youtu.be/ELjbzOQ-liI
 
