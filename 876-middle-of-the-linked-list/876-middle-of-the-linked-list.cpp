@@ -8,17 +8,19 @@
  *     ListNode(int x, ListNode *next) : val(x), next(next) {}
  * };
  */
+
+//Tortoise method  - fast tortoise and slow tortoise 
 class Solution {
 public:
-    ListNode* middleNode(ListNode* head) {
-        vector<ListNode*> A = {head};
-        while(A.back()->next != NULL)  
-            A.push_back(A.back()->next);
-        return A[A.size()/2];   //as indexing start from 0
+       ListNode * middleNode(ListNode* head) {
+       ListNode * slow=head, *fast=head;
+        while(fast!=NULL && fast->next!=NULL){
+            slow = slow->next;
+            fast = fast->next->next;
+        }
+        return slow;
     }
 };
 
 
-//A.back()  ??
-//https://www.tutorialspoint.com/cpp_standard_library/cpp_vector_back.htm
-//returns a reference to the last element of the vector.Calling back on empty vector causes undefined behavior
+
