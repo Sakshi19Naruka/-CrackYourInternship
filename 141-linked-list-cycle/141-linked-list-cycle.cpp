@@ -8,17 +8,19 @@
  */
 class Solution {
 public:
-    unordered_map<ListNode*, int> mp;
+   // Tortoise / 2 pointer method  here Time c-  O(N) as slow pointer have gone once through whole list before colliding and space - O(1)
     bool hasCycle(ListNode *head) { 
-        while(head != NULL){
-            if(mp.find(head)==mp.end()){  //if not present then insert
-                mp[head]++;
-            }
-            
-            else{
-                return true;    //if present then it means cycle is there
-            }
-            head = head->next;
+        if(head==NULL || head->next==NULL)
+            return false;
+        
+        ListNode *slow = head;
+        ListNode *fast = head;
+        while(fast!=NULL && fast->next!=NULL){
+            slow = slow->next;
+            fast = fast->next->next;
+//Condition initialisation k baad slow & fast collide only when if there is cycle;            
+            if(slow==fast)     
+                return true;
         }
         return false;
     }
