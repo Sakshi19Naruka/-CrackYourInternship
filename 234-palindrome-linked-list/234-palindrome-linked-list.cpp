@@ -10,8 +10,8 @@
  */
 
 //Brute force
-// Time - O(N) + O(N)
-// Space - O(N)   extra arr/vector 
+// Time - O(N/2) + O(N/2) + O(N/2)
+// Space - O(1) 
 class Solution {
 public:
     bool isPalindrome(ListNode* head) {
