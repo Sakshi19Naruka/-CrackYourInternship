@@ -6,42 +6,25 @@
  *     ListNode(int x) : val(x), next(NULL) {}
  * };
  */
+
+//BEST as well as SHORT APPROACH 
 class Solution {
 public:
     ListNode *getIntersectionNode(ListNode *headA, ListNode *headB) {
-        int cnt1=0, cnt2=0;
-        ListNode *ptr1=headA;
-        ListNode *ptr2=headB;
-        while(ptr1!=NULL){
-            cnt1++;           //find length of lsit1
-            ptr1=ptr1->next;
-        }
-        while(ptr2!=NULL){
-            cnt2++;           //find length of lsit2
-            ptr2=ptr2->next;
-        }
-        int diff=abs(cnt1-cnt2);   //find difference of length
+        if(headA==NULL || headB==NULL) 
+            return NULL;
         
-        if(cnt1>=cnt2){
-            while(diff){
-				headA = headA -> next;
-				diff--;
-			}
+        ListNode *a=headA;
+        ListNode *b=headB;
+        
+        //if a and b have different length, the we will stop the loop after second iteration
+        
+        //for the end of first iteration, we just reset the pointer to the head of another linkedlist
+        while(a!=b){
+            a = (a==NULL)? headB: a->next;
+            b = (b==NULL)? headA: b->next;
         }
-        else{
-             while(diff){
-				headB = headB -> next;
-				diff--;
-			}
-        }
-       
-        while(headA!=NULL && headB!=NULL){
-            if(headA==headB)
-                return headA;
-            headA=headA->next;
-            headB=headB->next;
-        }
-        return NULL;
+        return a;
     }
 };
 
