@@ -15,17 +15,38 @@
 class Solution {
 public:
     bool isPalindrome(ListNode* head) {
-        vector<int> nums;
-        ListNode* curr = head;
-        while(curr){
-            nums.push_back(curr->val);
-            curr=curr->next;
+       if(head->next==NULL)
+           return true;
+        
+       ListNode *slow=head;
+       ListNode *fast=head; 
+        while(fast->next!=NULL && fast->next->next!=NULL){
+            slow=slow->next;
+            fast=fast->next->next;
         }
         
-        for(int i=0; i<nums.size()/2; i++){
-            if(nums[i] != nums[nums.size()-i-1])
+        slow->next = reversalList(slow->next);
+        slow = slow->next;
+        
+        while(slow!=NULL){
+            if(head->val != slow->val)
                 return false;
+            head = head->next;
+            slow = slow->next;
         }
         return true;
+    }
+    
+    ListNode * reversalList(ListNode* head){
+        ListNode *pre=NULL;
+        ListNode *next=NULL;
+        
+        while(head!=NULL){
+            next=head->next;
+            head->next=pre;
+            pre=head;
+            head=next;
+        }
+       return pre; 
     }
 };
