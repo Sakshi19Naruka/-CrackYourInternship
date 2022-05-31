@@ -10,28 +10,24 @@
  * };
  */
 
-//bruteforce 
-//tc O(N^2) = O(N)->traverse everynode ,O(N) height
+ 
+//tc O(N), sc- O(N) 
 class Solution {
-public:
-    int height(TreeNode* root){
-        if(root == NULL)    return 0;
-        
-        int leftheight=height(root->left);
-        int rightheight=height(root->right);
-        
-        return 1 + max(leftheight,rightheight);
+private:
+    int height(TreeNode* node, int &maxi){   //diameter pass by reference
+        if(node==NULL){
+            return 0;
+        }
+        int lh=height(node->left, maxi);
+        int rh=height(node->right, maxi);
+        maxi = max(maxi, lh+rh);
+        return 1 + max(lh,rh);
     }
     
-    
+public:    
     int diameterOfBinaryTree(TreeNode* root) {
-       if(root == NULL)    return 0;
-        
-        int h = height(root->left) + height(root->right);
-        
-        int leftdiameter = diameterOfBinaryTree(root->left);
-        int rightdiameter = diameterOfBinaryTree(root->right);
-        
-        return max(h, max(leftdiameter ,rightdiameter)); 
+      int diameter=0; //diameter - maxi
+        height(root, diameter);
+        return diameter;
     }
 };
