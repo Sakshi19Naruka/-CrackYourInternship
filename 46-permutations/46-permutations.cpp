@@ -1,23 +1,19 @@
-//brute force 
+//without using extra data structure(map in previous) 
 // TC - n! * N   (total permutations n!, run for loop each time - total N times)
-// SC - O(N) + O(N)   One is for ds, other is for map
+// SC - O(N)    Only auxilliary space
 
 class Solution {
     private: 
-    void recurpermute(vector<int> &ds, vector<vector<int>> &ans, vector<int> &nums, int freq[]){
-        if(ds.size()==nums.size()){
-            ans.push_back(ds);
+    void recurpermute(int index, vector<vector<int>> &ans, vector<int> &nums){
+        if(index==nums.size()){
+            ans.push_back(nums);
             return;
         }
         
-        for(int i=0; i<nums.size();i++){
-            if(!freq[i]){ // if already status 1 nhi h, it means use pick kr skte h
-                ds.push_back(nums[i]);
-                freq[i] = 1; // status update
-                recurpermute(ds, ans, nums, freq);
-                freq[i]=0;
-                ds.pop_back();
-            }
+        for(int i=index; i<nums.size();i++){
+            swap(nums[index], nums[i]);
+            recurpermute(index+1, ans, nums);
+            swap(nums[index], nums[i]);   //reswap (backtracking)
         }
     }
     
@@ -26,10 +22,7 @@ public:
         // code starts from here
         vector<vector<int>> ans;
         vector<int> ds;
-        int freq[nums.size()];  // it is a map which will take care of status
-        for(int i=0; i<nums.size();i++)  freq[i]=0; 
-        //another way to initialise int freq[nums.size()] = {0};
-        recurpermute(ds, ans, nums, freq);
+        recurpermute(0, ans, nums);
         return ans;
     }
 };
