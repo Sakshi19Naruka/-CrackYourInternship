@@ -1,18 +1,18 @@
- // using 2-Pointers and HashSet
-// TC - O(N)
+ // using 2-Pointers and Frequency array
+// TC - O(N) , SC - O(1)
 class Solution {
 public:
     int maximumUniqueSubarray(vector<int>& nums) {
         int n=nums.size(), curr_sum=0, ans=0, l=0, r=0;
-        unordered_set<int> s;  //good in case of unique values
+        bool freq[10001] {false};   // bcoz 1 <= nums[i] <= 10000  given
         while(r<n){
-            while(s.find(nums[r]) != s.end()){
-                curr_sum -= nums[l];   //duplicate milne k case me set me se erase and update curr_sum accordingly
-                s.erase(nums[l++]);
+            while(freq[nums[r]]){
+                curr_sum -= nums[l];   
+                freq[nums[l++]] = false;
             }
             
             curr_sum += nums[r];
-            s.insert(nums[r++]);
+            freq[nums[r++]] = true;
             ans = max(ans, curr_sum);
         }
        return ans; 
