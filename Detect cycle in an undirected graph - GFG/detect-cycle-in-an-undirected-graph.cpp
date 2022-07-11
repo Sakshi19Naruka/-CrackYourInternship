@@ -45,13 +45,13 @@ class Solution {
     {
         // Create a queue for BFS
         queue<pair<int, int>> q;
-        
+        visited[s] = 1;
         q.push({s, -1});
         while (!q.empty())
         {
             int node = q.front().first;
             int par = q.front().second;
-            visited[node] = 1;
+            
             q.pop();
  
             for (auto it : adj[node])
