@@ -5,37 +5,58 @@ using namespace std;
  // } Driver Code Ends
 class Solution {
 public:
-    bool bipartiteBfs(int src, vector<int>adj[], int color[]){
-        queue<int> q;
-        q.push(src);
-        color[src]=1; // can color with 0 also
-        while(!q.empty()){
-            int node = q.front();
-            q.pop();
-            
-            for(auto it: adj[node]){
-                if(color[it]==-1){
-                    color[it] = 1-color[node];
-                    q.push(it);
-                }
-                else if(color[it] == color[node])
-                   return false;
-            }
-        }
-        return true;
-    }
+//Using DFS
+//     bool bipartiteDfs(int node, vector<int>adj[], int color[]){
+//         if(color[node] == -1)
+//           color[node] = 1;
+           
+//         for(auto it: adj[node]){
+//             if(color[it] == -1){
+//                 color[it] = 1-color[node];
+//                 if(!bipartiteDfs(it, adj, color)){
+//                     return false; 
+//                 }
+//                 else if(color[it] == color[node]) 
+//                     return false;
+//             }
+//         }  
+//         return true;
+//     }
 
-	bool isBipartite(int V, vector<int>adj[]){
-	    // Code here
-	    int color[V];
-	    memset(color, -1, sizeof color); //it initialise with -1
-	    for(int i=0; i<V; i++){
-	        if(color[i] ==-1){
-	            if(!bipartiteBfs(i, adj, color)) //jha ye proof ho gya ki bipartite nhi h vhi se return aage traverse hi nhi krna
-	              return false;
-	        }
-	    }
-	    return true;
+// 	bool isBipartite(int V, vector<int>adj[]){
+// 	    // Code here
+// 	    int color[V];
+// 	    memset(color, -1, sizeof color); //it initialise with -1
+// 	    for(int i=0; i<V; i++){
+// 	        if(color[i] ==-1){
+// 	            if(!bipartiteDfs(i, adj, color)) //jha ye proof ho gya ki bipartite nhi h vhi se return aage traverse hi nhi krna
+// 	              return false;
+// 	        }
+// 	    }
+// 	    return true;
+bool bipartiteDfs(int node, vector<int> adj[], int color[]) {
+    for(auto it : adj[node]) {
+        if(color[it] == -1) {
+            color[it] = 1 - color[node];
+            if(!bipartiteDfs(it, adj, color)) {
+                return false; 
+            }
+        } else if(color[it] == color[node]) return false; 
+    }
+    return true; 
+}
+bool isBipartite(int V ,vector<int> adj[])  {
+    int color[V];
+    memset(color, -1, sizeof color); 
+    for(int i = 0;i<V;i++) {
+        if(color[i] == -1) {
+            color[i] = 1;
+            if(!bipartiteDfs(i, adj, color)) {
+                return false;
+            }
+        } 
+    }
+    return true; 
 	}
 
 };
