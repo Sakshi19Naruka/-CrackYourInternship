@@ -1,6 +1,6 @@
 /**
  * Definition for singly-linked list.
- * struct ListNode { 
+ * struct ListNode {
  *     int val;
  *     ListNode *next;
  *     ListNode() : val(0), next(nullptr) {}
@@ -10,51 +10,27 @@
  */
 class Solution {
 public:
-     ListNode* reverse(ListNode* head){
-        
-        ListNode* prev = NULL, *next = NULL, *current = head;
-        while(current != NULL){
-            next = current->next;
-            current->next = prev;
-            prev = current;
-            current = next;   
-        }
-        return prev;
-    }
-    
     ListNode* reverseBetween(ListNode* head, int left, int right) {
-        //Code start
-        ListNode* curr=head, *prev=NULL;
-        int cnt=1;
-        while(cnt!=left){
-            prev=curr;
-            curr=curr->next;
-            cnt++;
-        }
-        
-        ListNode* start=curr;
-        while(cnt!=right){
-            curr=curr->next;
-            cnt++;
-        }
-        
-        ListNode* rest=curr->next;
-        curr->next=NULL;
-        ListNode* newHead = reverse(start);
-        
-        if(prev!=NULL){
-            prev->next=newHead;
-        }
-        curr=newHead;
-        
-        while(curr->next!=NULL){
-            curr=curr->next;
-        }
-        curr->next=rest;
-        
-        if(left==1)
-            return newHead;
-        else
+        //Approach 2
+        if(head==NULL || left==right)
             return head;
+        
+        ListNode* prev, * tail=NULL, * temp=NULL;
+        
+        ListNode dummy(NULL);  // HOW we form dummy node in STL 
+        prev=&dummy;
+        dummy.next = head;
+        
+        for(int i=1;i<left; i++){
+            prev=prev->next;
+        }
+        tail = prev->next;
+        for(int i=0; i<right-left; i++){
+            temp=prev->next;
+            prev->next=tail->next;
+            tail->next=tail->next->next;
+            prev->next->next=temp;
+        }
+        return dummy.next;
     }
 };
