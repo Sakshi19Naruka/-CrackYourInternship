@@ -9,18 +9,31 @@
  *     TreeNode(int x, TreeNode *left, TreeNode *right) : val(x), left(left), right(right) {}
  * };
  */
+
+    // TC- O(N), SC-O(1) 
+
 class Solution {
-public:
-    // Recursive solution  
-    TreeNode* prev=NULL;
-    void flatten(TreeNode* root) {
-        if(root==NULL)
-            return;
-        flatten(root->right);
-        flatten(root->left);
-        
-        root->right = prev;
-        root->left = NULL;
-        prev = root;
+  TreeNode * prev = NULL;
+  public:
+   void flatten(TreeNode* root) {
+        TreeNode* cur = root;
+		while (cur)
+		{
+			if(cur->left)
+			{
+				TreeNode* pre = cur->left;
+				while(pre->right)
+				{
+					pre = pre->right;
+				}
+				pre->right = cur->right;
+				cur->right = cur->left;
+				cur->left = NULL;
+			}
+			cur = cur->right;
+		}
     }
+
+
+
 };
