@@ -2,23 +2,20 @@ class Solution {
 public:
     int bitwiseComplement(int n) {
         int m = n;
-        int mask = 0, cnt = 0, ans = 0;
+        int mask = 0;
         
         if(n==0){
-            ans = n | 1;
-            return ans;
+            return 1;
         }
         
-        while(m!=0){
-            m = m>>1;
-            cnt++;
-        }
-        while(cnt){
+        while(m!=0){             /*same logic as previous*/
             mask = mask<<1;
             mask = mask | 1;
-            cnt--;
+            m = m>>1;
         }
-        ans = n ^ mask;
+        
+        int ans = n ^ mask;   
+        /*can also do---> ans = (~n) & mask */
         return ans;
     }
 };
