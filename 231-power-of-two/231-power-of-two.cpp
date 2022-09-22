@@ -1,19 +1,18 @@
+ /*if no. of set bits in binary representation of a number == 1 then it means that number is a power of 2 */
+
+
 class Solution {
 public:
-    bool isPowerOfTwo(int n) {
-        
-        if(n==1)
-            return true;
-        
-        int ans =1;
-        while(ans<n && ans<INT_MAX/2 && ans>INT_MIN/2){
-            ans *= 2;
-        }
-        if(ans != n){
-            return false;
-        }
-        else {
-            return true;
-        }
+    
+   bool isPowerOfTwo(int n) {
+     if (n <= 0) {
+     return false;
+   }
+    
+   bitset<32> bset(n);
+   if(bset.count() == 1){
+       return true;
     }
+       return false;
+}
 };
