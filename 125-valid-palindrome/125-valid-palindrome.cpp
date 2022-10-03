@@ -1,41 +1,52 @@
 class Solution {
-public:
+private:
+    bool valid(char ch){
+        if((ch>='a' && ch<='z') || (ch>='A' && ch<='Z') || (ch>='0' && ch<='9'))
+            return 1;
+        return 0;
+    }
     
     char toLowerCase(char ch){
-        if(ch>=97 && ch<=122)
-           return ch;
+        if((ch>='a' && ch<='z') || (ch>='0' && ch<='9'))
+            return ch;
         else{
-           char temp = ch - 'A' + 'a';
-           return temp;
+            char temp = ch - 'A' +'a';
+            return temp;
         }
     }
     
-    bool isPalindrome(string s) {
-        //Your code starts from here
-        int st=0;
-        int end=s.size()-1;
-    
-    while(st<=end){
-        if(((s[st]>=97&&s[st]<=122)||(s[st]>=65&&s[st]<=90)||(s[st]>=48&&s[st]<=57)) && ((s[end]>=97&&s[end]<=122)||(s[end]>=65&&s[end]<=90)||(s[end]>=48&&s[end]<=57))){
-            if(toLowerCase(s[st]) != toLowerCase(s[end]))
+    bool checkPalindrome(string a){
+        int s=0;
+        int e=a.length()-1;
+        
+        while(s<e){
+            if(a[s] != a[e])
                 return false;
             else{
-                st++;
-                end--;
+                s++;
+                e--;
             }
         }
-           
-        else if(!((s[st]>=97&&s[st]<=122)||(s[st]>=65&&s[st]<=90)||(s[st]>=48&&s[st]<=57)) )         {
-            st++;
-        } 
-           
-        else if(!((s[end]>=97&&s[end]<=122)||(s[end]>=65&&s[end]<=90)||(s[end]>=48&&s[end]<=57)) ){
-            end--;
-        }     
-        
+        return true;
     }
     
-    return true;
-
+public:
+    bool isPalindrome(string s) {
+        //step 1 faltu character htaa do , ek nyi string me sare kaam k character
+        string newStr = "";
+        
+        for(int i=0; i<s.size(); i++){
+            if(valid(s[i])){
+                newStr.push_back(s[i]);
+            }
+        }
+        
+        //step 2 -> sbko lower case me krdo
+        for(int i=0; i<newStr.length(); i++){
+           newStr[i] = toLowerCase(newStr[i]);
+        }
+        
+        //step 3 check palindrome
+        return checkPalindrome(newStr);
     }
 };
