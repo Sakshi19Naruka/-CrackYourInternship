@@ -1,17 +1,19 @@
 class Solution {
 public:
     vector<vector<int>> construct2DArray(vector<int>& original, int m, int n) {
-        int size = original.size();
+        int k=0;  // or indexing original array
+        if(m*n != original.size())
+            return {};   
         
-        if(size != (m*n))
-            return {};
-        
-            vector<vector<int>> twoDarray;
-            for(int i=0; i<m*n; i+=n){
-                //0-(n-1)  n-(2n-1)  and so on
-                twoDarray.push_back(vector<int>(original.begin()+i, original.begin()+i+n));
+        vector<vector<int>> ans;
+        for(int i=0; i<m; i++){
+            //bcoz 2D vector k ander vector hi store hota h direct elements nhi
+            vector<int> temp;     
+            for(int j=0; j<n; j++){
+                temp.push_back(original[k++]);
             }
-    
-        return twoDarray;
+            ans.push_back(temp);
+        }
+        return ans;
     }
 };
