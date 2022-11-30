@@ -88,11 +88,8 @@ private:
     
 public:
     ListNode* addTwoNumbers(ListNode* l1, ListNode* l2) {
-        //step 1 reverse both input list
-        // l1 = reverse(l1);
-        // l2 = reverse(l2);
         
-        //step 2 Add 2 linked list
+        //step 1 Add 2 linked list
         ListNode* ans = add(l1, l2);
         
         return ans;
