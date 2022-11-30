@@ -43,45 +43,29 @@ private:
         ListNode* ansHead = NULL;
         ListNode* ansTail = NULL;
         
-        while(l1!=NULL && l2!=NULL){
-            int sum = carry + l1->val + l2->val;
+        while(l1!=NULL || l2!=NULL || carry!=0){
+            int val1 = 0;
+            if(l1 != NULL){
+               val1 = l1->val;
+            }
+            
+            int val2 = 0;
+            if(l2 != NULL){
+               val2 = l2->val;
+            }
+            
+            int sum = carry + val1 + val2;
             int digit = sum%10;
             carry = sum/10;
             
             //create node and add in ans linked list   
             insertAtTail(ansHead, ansTail, digit);
-            l1 = l1->next;
-            l2 = l2->next;
+            if(l1 != NULL)
+               l1 = l1->next;
+            if(l2 != NULL)
+               l2 = l2->next;
         }
-        
-        while(l1!=NULL){
-            int sum = carry + l1->val;
-            int digit = sum%10;
-            carry = sum/10;
-            
-            //create node and add in ans linked list  
-            insertAtTail(ansHead, ansTail, digit);
-            l1 = l1->next;
-        }
-        
-        while(l2!=NULL){
-            int sum = carry + l2->val;
-            int digit = sum%10;
-            carry = sum/10;
-            
-            //create node and add in ans linked list  
-            insertAtTail(ansHead, ansTail, digit);
-            l2 = l2->next;
-        }
-        
-        while(carry != 0){
-            int sum = carry;
-            int digit = sum%10;
-            carry = sum/10;
-            
-            //create node and add in ans linked list  
-            insertAtTail(ansHead, ansTail, digit);
-        }
+    
         
         return ansHead;
     }
