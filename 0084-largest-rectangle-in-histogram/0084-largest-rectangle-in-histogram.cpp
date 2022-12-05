@@ -1,5 +1,5 @@
-// Bruteforce 
-// T.C - O(N^2)
+
+// T.C - O(N)
 
 
 class Solution {
