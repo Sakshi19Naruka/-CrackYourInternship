@@ -89,52 +89,34 @@ struct Node
 };*/
 
 class Solution {
-    
-    
   public:
-  unordered_map<string,int>mp;
-//   //wrong
-//     string solve(Node *root){
-//         if(root==NULL){
-//             return "$";  //as a delimiter
-//         }
-//         string s = "";
-        
-//         if(root->left==NULL && root->right==NULL){
-//             s = to_string(root->data);
-//             //map me nhi dalna ise
-//             return s;
-//         }
-        
-//         s = to_string(root->data);
-//         s += solve(root->left);
-//         s += solve(root->right);
-//         mp[s]++;
-//         return s;
-        
-//     }
-    
-    
-    string solve(Node* root){
+  map<vector<string>,int>mp;
+    vector<string> solve(Node *root){
         if(root==NULL){
-            return "$ ";
+            string s ="$";
+            vector<string> v;
+            v.push_back(s);
+            return v;  //as a delimiter
         }
-        
-        string s="";
+        vector<string> s;
         
         if(root->left==NULL && root->right==NULL){
-            s=to_string(root->data);
+            string s1 = to_string(root->data);
+            s.push_back(s1);
+            //map me nhi dalna ise
             return s;
         }
         
-        s=s+"@"+to_string(root->data);
-        s=s+"@"+solve(root->left);
-        s=s+"@"+solve(root->right);
-        
+        string s1=to_string(root->data);
+        s.push_back(s1);
+        vector<string> s2= solve(root->left);
+        s.insert(s.end(),s2.begin(),s2.end());
+        vector<string> s3= solve(root->right);
+         s.insert(s.end(),s3.begin(),s3.end());
         mp[s]++;
         return s;
+        
     }
-  
     /*This function returns true if the tree contains 
     a duplicate subtree of size 2 or more else returns false*/
     int dupSub(Node *root) {
