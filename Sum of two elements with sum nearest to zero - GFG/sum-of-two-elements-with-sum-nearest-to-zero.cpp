@@ -19,7 +19,7 @@ class Solution
                     min_sum = sum;
                 }
                 
-                if(abs(min_sum) == abs(sum)){
+                if(abs(min_sum) == abs(sum)){   //Note given
                     min_sum = max(min_sum, sum);
                 }
                 
