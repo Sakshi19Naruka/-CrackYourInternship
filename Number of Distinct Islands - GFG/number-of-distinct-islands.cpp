@@ -41,6 +41,8 @@ class Solution {
                 }
             }
         }
+        //TC - (n * m * log(n*m)) + (n*m*4)  
+        //     for loop              dfs
         return st.size();
     }
 };
