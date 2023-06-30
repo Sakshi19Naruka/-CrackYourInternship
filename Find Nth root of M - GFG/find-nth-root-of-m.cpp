@@ -11,7 +11,6 @@ class Solution{
 	    if(m==1)
 	        return m;
 	    int low = 1, high = m;
-	    int ans = 1;
 	    int mid;
 	    while(low<=high){
 	        mid = low + (high-low)/2;
@@ -19,7 +18,6 @@ class Solution{
 	            high = mid-1;
 	        }
 	        else if(pow(mid,n)<m){
-	            ans = max(ans, mid);
 	            low = mid+1;
 	        }
 	        else{
